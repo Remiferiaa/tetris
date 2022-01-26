@@ -192,3 +192,8 @@ T = [[
             [0,0,0,0],
      ], 
     ]   
+<<<<<<< HEAD
+=======
+shapes = [I,O,S,Z,L,J,T]
+shapes_colour = [red,orange,blue,green,teal,purple,yellow]
+>>>>>>> 611c62b (Minor Adjustments)
