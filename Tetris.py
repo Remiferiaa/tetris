@@ -73,16 +73,7 @@ def absorb(current_piece,grid):
                      if current_piece.shape[current_piece.rotate][i][j] != 0:
                             grid[current_piece.y + i][current_piece.x + j]  = 1  
 
-
-
-def absorb(current_piece,grid):
-    for i in range(len(current_piece.shape[current_piece.rotate])):
-       for j in range(len(current_piece.shape[current_piece.rotate][i])):
-              if current_piece.shape[current_piece.rotate][i][j] != 0:
-                     grid[current_piece.y + i][current_piece.x + j]  = 1  
-                     
-
-
+                            
 def clear_row(grid):
        for i in range(len(grid)):
               if grid[i] == [1 for x in range(10)]:
