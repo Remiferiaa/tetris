@@ -5,12 +5,6 @@ screen = pygame.display.set_mode((width,height))
 pygame.display.set_caption("Tetris")
 clock = pygame.time.Clock()
 
-<<<<<<< HEAD
-shapes = [I,O,S,Z,L,J,T]
-shapes_colour = [red,orange,blue,green,teal,purple,yellow]
-
-=======
->>>>>>> 611c62b (Minor Adjustments)
 
 class Blocks:
     def __init__(self,shape,colour,x,y):
@@ -22,10 +16,7 @@ class Blocks:
     
     def downwards(self):
         self.y += 1
-<<<<<<< HEAD
-      
-=======
->>>>>>> 611c62b (Minor Adjustments)
+
 
 
 def blshape(): 
@@ -42,17 +33,14 @@ def bldraw(piece):
       for j in range(4):
         if piece.shape[piece.rotate][i][j] !=0:
             pygame.draw.rect(screen, piece.colour, (100 + piece.x * brick  + brick * j,100 +  piece.y * brick   + brick *i, brick, brick), 0)
-<<<<<<< HEAD
+
        
        
               
 
 
-def draw_grid(): 
-=======
-        
 
-
+     
 def get_grid():
     grid = [[0 for x in range(10)] for x in range(20)]             
     return grid
@@ -60,21 +48,15 @@ def get_grid():
 
 
 def draw_grid(grid): 
->>>>>>> 611c62b (Minor Adjustments)
     for i in range(len(grid)):
        for j in range(len(grid[i])):
               if grid[i][j] == 0:
                   pygame.draw.rect(screen,white, (100 + j * brick, 100 + i * brick, brick, brick), 1)     
               elif grid[i][j] == 1:
-<<<<<<< HEAD
                   pygame.draw.rect(screen,(150,150,150), (100 + j * brick, 100 + i * brick, brick, brick), 100)
                   pygame.draw.rect(screen,white, (100 + j * brick, 100 + i * brick, brick, brick), 1)  
-     
-=======
-                  pygame.draw.rect(screen,(150,150,150), (100 + j * brick, 100 + i * brick, brick, brick), 10)
-                  pygame.draw.rect(screen,white, (100 + j * brick, 100 + i * brick, brick, brick), 1)  
     pygame.draw.rect(screen,blue,(100,100,200,400),3)
->>>>>>> 611c62b (Minor Adjustments)
+
 
 
 
@@ -89,7 +71,6 @@ def validity(current_piece, grid,x_change,y_change, rot):
                             return False
                      if next_y >= len(grid) or grid[next_y][next_x] != 0:     
                             return False
-<<<<<<< HEAD
   
 
     return validity
@@ -103,8 +84,7 @@ def absorb(current_piece,grid):
                             grid[current_piece.y + i][current_piece.x + j]  = 1  
 
 
-=======
-    return validity
+
 
 
 def absorb(current_piece,grid):
@@ -113,7 +93,7 @@ def absorb(current_piece,grid):
               if current_piece.shape[current_piece.rotate][i][j] != 0:
                      grid[current_piece.y + i][current_piece.x + j]  = 1  
                      
->>>>>>> 611c62b (Minor Adjustments)
+
 
 def clear_row(grid):
        for i in range(len(grid)):
@@ -128,82 +108,6 @@ def game_over(grid):
                      return True
 
 
-
-<<<<<<< HEAD
-
-
-
-pygame.init()
-current_piece = blshape()
-c = 0
-grid = [[0 for x in range(10)] for x in range(20)]
-game_over(grid) == False
-while True:
-       
-       c = c + 1
-       if c > 1000:
-              if validity(current_piece, grid,0,1,current_piece.rotate) == False:
-                     absorb(current_piece,grid)
-                     next_piece = blshape()
-                     current_piece = next_piece
-                     
-              else:
-                     current_piece.downwards()
-
-              c = 0
-               
-    
-             
-       for event in pygame.event.get():
-              clock.tick(fps)
-              if event.type == pygame.QUIT:      
-                     pygame.quit()
-                     sys.exit()
-
-
-              if event.type == pygame.KEYDOWN:
-                     if event.key == pygame.K_DOWN:
-                            if validity(current_piece, grid,0,1,current_piece.rotate) == True:
-                                   current_piece.y += 1
-                            else:
-                                   absorb(current_piece,grid)  
-                                   
-
-                     if event.key == pygame.K_LEFT:
-                            if validity(current_piece, grid,-1,0,current_piece.rotate) == True:
-                                   current_piece.x -=  1                         
-                     if event.key == pygame.K_RIGHT:
-                            if validity(current_piece, grid,1,0,current_piece.rotate) == True:
-                                   current_piece.x += 1
-                     if event.key == pygame.K_UP: 
-                            if validity(current_piece, grid,0,0,(current_piece.rotate + 1) % 4) == True:
-                                   current_piece.rotate += 1 
-
-                     if event.key == pygame.K_SPACE:
-                            while validity(current_piece, grid,0,1,current_piece.rotate) == True:
-                                   current_piece.y += 1
-                            else:  
-                                   absorb(current_piece,grid) 
-                                          
-
-                     if current_piece.rotate + 1 > 4:
-                            current_piece.rotate = 0 
-              
-       draw_grid()
-       clear_row(grid)
-       pygame.display.update()
-       screen.fill(black)
-       bldraw(current_piece) 
-
-
-       if game_over(grid) == True:
-              pygame.quit()
-              sys.exit()
-
-        
-        
-         
-=======
 def main():
        pygame.init()
        stage = get_grid()
@@ -260,7 +164,7 @@ def main():
 
 
 main()        
->>>>>>> 611c62b (Minor Adjustments)
+
         
           
 
