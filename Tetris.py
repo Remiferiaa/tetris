@@ -34,13 +34,7 @@ def bldraw(piece):
         if piece.shape[piece.rotate][i][j] !=0:
             pygame.draw.rect(screen, piece.colour, (100 + piece.x * brick  + brick * j,100 +  piece.y * brick   + brick *i, brick, brick), 0)
 
-       
-       
-              
-
-
-
-     
+               
 def get_grid():
     grid = [[0 for x in range(10)] for x in range(20)]             
     return grid
@@ -71,19 +65,13 @@ def validity(current_piece, grid,x_change,y_change, rot):
                             return False
                      if next_y >= len(grid) or grid[next_y][next_x] != 0:     
                             return False
-  
-
     return validity
-
-
 
 def absorb(current_piece,grid):
        for i in range(len(current_piece.shape[current_piece.rotate])):
               for j in range(len(current_piece.shape[current_piece.rotate][i])):
                      if current_piece.shape[current_piece.rotate][i][j] != 0:
                             grid[current_piece.y + i][current_piece.x + j]  = 1  
-
-
 
 
 
