@@ -1,4 +1,3 @@
-dimensions = (500,500)
 fps = 45
 
 width = 500
