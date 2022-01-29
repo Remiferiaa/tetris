@@ -18,14 +18,12 @@ class Blocks:
         self.y += 1
 
 
-
 def blshape(): 
     box = random.choice(shapes)    
     box_col = random.choice(shapes_colour)
-    spawnP = 4
+    spawnP = 3
     piece = Blocks(box,box_col, spawnP, 0)
     return piece 
-
 
 
 def bldraw(piece):
@@ -40,7 +38,6 @@ def get_grid():
     return grid
 
 
-
 def draw_grid(grid): 
     for i in range(len(grid)):
        for j in range(len(grid[i])):
@@ -50,8 +47,6 @@ def draw_grid(grid):
                   pygame.draw.rect(screen,(150,150,150), (100 + j * brick, 100 + i * brick, brick, brick), 100)
                   pygame.draw.rect(screen,white, (100 + j * brick, 100 + i * brick, brick, brick), 1)  
     pygame.draw.rect(screen,blue,(100,100,200,400),3)
-
-
 
 
 def validity(current_piece, grid,x_change,y_change, rot):
@@ -66,6 +61,7 @@ def validity(current_piece, grid,x_change,y_change, rot):
                      if next_y >= len(grid) or grid[next_y][next_x] != 0:     
                             return False
     return validity
+
 
 def absorb(current_piece,grid):
        for i in range(len(current_piece.shape[current_piece.rotate])):
@@ -87,6 +83,13 @@ def game_over(grid):
                      return True
 
 
+def screen_over():
+       screen.fill(black)
+       font = pygame.font.SysFont("Comic Sans", 24)
+       text_over =  font.render("Game Over! Press R to restart", True, white)
+       screen.blit(text_over, (width/10, height/3))
+        
+        
 def main():
        pygame.init()
        stage = get_grid()
@@ -94,9 +97,8 @@ def main():
        c = 0
        game_over(stage) == False
        while True:
-              
               c = c + 1
-              if c > 1000:
+              if c > 40: 
                      if validity(current_piece, stage,0,1,current_piece.rotate) == False:
                             absorb(current_piece,stage)
                             next_piece = blshape()
@@ -104,13 +106,12 @@ def main():
                      else:
                             current_piece.downwards()
                      c = 0
-                       
-              for event in pygame.event.get():
-                     clock.tick(fps)
+              
+                   
+              for event in pygame.event.get():  
                      if event.type == pygame.QUIT:      
                             pygame.quit()
                             sys.exit()
-
                      if event.type == pygame.KEYDOWN:
                             if event.key == pygame.K_DOWN:
                                    if validity(current_piece, stage,0,1,current_piece.rotate) == True:
@@ -130,21 +131,34 @@ def main():
                                    while validity(current_piece, stage,0,1,current_piece.rotate) == True:
                                           current_piece.y += 1
 
-              draw_grid(stage)
-              clear_row(stage)
-              pygame.display.flip()
-              screen.fill(black)
-              bldraw(current_piece)
 
+              
+              screen.fill(black)
+              draw_grid(stage)
+              bldraw(current_piece)
+              clear_row(stage) 
+              clock.tick(fps) 
+             
               if game_over(stage) == True:
-                     pygame.quit()
-                     sys.exit()
-                     
+                     screen_over() 
+                     for event in pygame.event.get():  
+                            if event.type == pygame.KEYDOWN:
+                                   if event.key == pygame.K_r:
+                                          main()
+                                   if event.key == pygame.K_q:
+                                          pygame.quit()
+                                          exit()
+
+
+              
+              pygame.display.flip()
+                   
+                   
 
 
 main()        
 
-        
+    
           
 
 
