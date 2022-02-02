@@ -74,9 +74,10 @@ def clear_row(grid):
        for i in range(len(grid)):
               if grid[i] == [1 for x in range(10)]:
                      del grid[i]
-                     grid.insert(0, [0 for x in range(10)])  
-
-
+                     grid.insert(0, [0 for x in range(10)])
+                     return True
+       
+       
 def game_over(grid):
        for i in range(len(grid[0])):
               if grid[0][i] != 0:
@@ -87,22 +88,44 @@ def screen_over():
        screen.fill(black)
        font = pygame.font.SysFont("Comic Sans", 24)
        text_over =  font.render("Game Over! Press R to restart", True, white)
+       text_quit = font.render("Press Q to quit the game", True, white)
        screen.blit(text_over, (width/10, height/3))
+       screen.blit(text_quit, (width/10, height/2))
         
-        
+
+def score(k):
+       font = pygame.font.SysFont("Comic Sans", 16)
+       j = k * 10
+       text_over =  font.render("Score:" + str(j), True, white) 
+       screen.blit(text_over, (400, 450))
+
+
+def gamelevel(grid,level,k):
+       score(k)
+       if clear_row(grid) == True:
+              k += 1
+              if k % 10 == 0:
+                     level += 0.1
+       return k
+
+
 def main():
        pygame.init()
        stage = get_grid()
        current_piece = blshape()
        c = 0
+       k = 0
+       level = 0
        game_over(stage) == False
        while True:
-              c = c + 1
-              if c > 40: 
-                     if validity(current_piece, stage,0,1,current_piece.rotate) == False:
+              c = (c + 1) * (1 + level)
+              if c > 20: 
+                     if validity(current_piece, stage,0,1,current_piece.rotate) == False: 
                             absorb(current_piece,stage)
+                            c = 0
                             next_piece = blshape()
-                            current_piece = next_piece   
+                            current_piece = next_piece  
+                                                        
                      else:
                             current_piece.downwards()
                      c = 0
@@ -130,13 +153,18 @@ def main():
                             if event.key == pygame.K_SPACE:
                                    while validity(current_piece, stage,0,1,current_piece.rotate) == True:
                                           current_piece.y += 1
+                                   
 
 
+              
               
               screen.fill(black)
               draw_grid(stage)
               bldraw(current_piece)
-              clear_row(stage) 
+              k = gamelevel(stage,level,k)       
+
+                     
+
               clock.tick(fps) 
              
               if game_over(stage) == True:
