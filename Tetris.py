@@ -97,7 +97,7 @@ def score(k):
        font = pygame.font.SysFont("Comic Sans", 16)
        j = k * 10
        text_over =  font.render("Score:" + str(j), True, white) 
-       screen.blit(text_over, (400, 450))
+       screen.blit(text_over, (350, 450))
 
 
 def gamelevel(grid,level,k):
@@ -108,11 +108,22 @@ def gamelevel(grid,level,k):
                      level += 0.1
        return k
 
+def show_piece(next_piece):
+       font = pygame.font.SysFont("Comic Sans", 16)
+       text_next =  font.render("Next Piece:", True, white) 
+       screen.blit(text_next, (350, 150))
+       for i in range(4):
+              for j in range(4):
+                     if next_piece.shape[next_piece.rotate][i][j] !=0:
+                      pygame.draw.rect(screen, next_piece.colour, (300 + next_piece.x * brick  + brick * j,200 +  next_piece.y * brick   + brick *i, brick, brick), 0)
+
+
 
 def main():
        pygame.init()
        stage = get_grid()
        current_piece = blshape()
+       next_piece = blshape()
        c = 0
        k = 0
        level = 0
@@ -123,9 +134,8 @@ def main():
                      if validity(current_piece, stage,0,1,current_piece.rotate) == False: 
                             absorb(current_piece,stage)
                             c = 0
-                            next_piece = blshape()
-                            current_piece = next_piece  
-                                                        
+                            current_piece = next_piece 
+                            next_piece = blshape()                         
                      else:
                             current_piece.downwards()
                      c = 0
@@ -153,18 +163,13 @@ def main():
                             if event.key == pygame.K_SPACE:
                                    while validity(current_piece, stage,0,1,current_piece.rotate) == True:
                                           current_piece.y += 1
-                                   
-
-
-              
-              
+      
               screen.fill(black)
               draw_grid(stage)
               bldraw(current_piece)
               k = gamelevel(stage,level,k)       
-
-                     
-
+              show_piece(next_piece)
+       
               clock.tick(fps) 
              
               if game_over(stage) == True:
