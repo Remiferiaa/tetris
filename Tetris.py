@@ -20,7 +20,7 @@ class Blocks:
 
 def blshape(): 
     box = random.choice(shapes)    
-    box_col = random.choice(shapes_colour)
+    box_col = shapes_colour[shapes.index(box)]
     spawnP = 3
     piece = Blocks(box,box_col, spawnP, 0)
     return piece 
@@ -44,7 +44,7 @@ def draw_grid(grid):
               if grid[i][j] == 0:
                   pygame.draw.rect(screen,white, (100 + j * brick, 100 + i * brick, brick, brick), 1)     
               elif grid[i][j] == 1:
-                  pygame.draw.rect(screen,(150,150,150), (100 + j * brick, 100 + i * brick, brick, brick), 100)
+                  pygame.draw.rect(screen,(80,86,98), (100 + j * brick, 100 + i * brick, brick, brick), 100)
                   pygame.draw.rect(screen,white, (100 + j * brick, 100 + i * brick, brick, brick), 1)  
     pygame.draw.rect(screen,blue,(100,100,200,400),3)
 
@@ -108,6 +108,7 @@ def gamelevel(grid,level,k):
                      level += 0.1
        return k
 
+
 def show_piece(next_piece):
        font = pygame.font.SysFont("Comic Sans", 16)
        text_next =  font.render("Next Piece:", True, white) 
@@ -116,7 +117,6 @@ def show_piece(next_piece):
               for j in range(4):
                      if next_piece.shape[next_piece.rotate][i][j] !=0:
                       pygame.draw.rect(screen, next_piece.colour, (300 + next_piece.x * brick  + brick * j,200 +  next_piece.y * brick   + brick *i, brick, brick), 0)
-
 
 
 def main():
@@ -139,8 +139,7 @@ def main():
                      else:
                             current_piece.downwards()
                      c = 0
-              
-                   
+                  
               for event in pygame.event.get():  
                      if event.type == pygame.QUIT:      
                             pygame.quit()
@@ -169,9 +168,7 @@ def main():
               bldraw(current_piece)
               k = gamelevel(stage,level,k)       
               show_piece(next_piece)
-       
               clock.tick(fps) 
-             
               if game_over(stage) == True:
                      screen_over() 
                      for event in pygame.event.get():  
@@ -182,13 +179,9 @@ def main():
                                           pygame.quit()
                                           exit()
 
-
-              
               pygame.display.flip()
                    
                    
-
-
 main()        
 
     
