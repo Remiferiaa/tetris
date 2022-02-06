@@ -146,23 +146,27 @@ def main():
                             sys.exit()
                      if event.type == pygame.KEYDOWN:
                             if event.key == pygame.K_DOWN:
-                                   if validity(current_piece, stage,0,1,current_piece.rotate) == True:
+                                   if validity(current_piece, stage, 0, 1,current_piece.rotate) == True:
                                           current_piece.y += 1
                             if event.key == pygame.K_LEFT:
-                                   if validity(current_piece, stage,-1,0,current_piece.rotate) == True:
+                                   if validity(current_piece, stage, -1, 0,current_piece.rotate) == True:
                                           current_piece.x -= 1                         
                             if event.key == pygame.K_RIGHT:
-                                   if validity(current_piece, stage,1,0,current_piece.rotate) == True:
+                                   if validity(current_piece, stage, 1, 0,current_piece.rotate) == True:
                                           current_piece.x += 1
                             if event.key == pygame.K_UP: 
-                                   if validity(current_piece, stage,0,0,(current_piece.rotate + 1) % 4) == True:
+                                   if validity(current_piece, stage, 0, 0,(current_piece.rotate + 1) % 4) == True:
                                           current_piece.rotate += 1 
                                    if current_piece.rotate + 1 > 4:
                                           current_piece.rotate = 0 
                             if event.key == pygame.K_SPACE:
-                                   while validity(current_piece, stage,0,1,current_piece.rotate) == True:
-                                          current_piece.y += 1
-      
+                                   while validity(current_piece, stage, 0, 1,current_piece.rotate) == True:
+                                          current_piece.y += 1       
+                                   absorb(current_piece,stage)
+                                   c = 0
+                                   current_piece = next_piece 
+                                   next_piece = blshape()  
+
               screen.fill(black)
               draw_grid(stage)
               bldraw(current_piece)
